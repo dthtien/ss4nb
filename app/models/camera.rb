@@ -1,5 +1,6 @@
 class Camera < ApplicationRecord
   has_many :reviews
+  belongs_to :brand
 
   scope :filter_and_order, -> do
     select("cameras.id, name, cameras.updated_at, AVG(reviews.score) AS reviews_avg").
