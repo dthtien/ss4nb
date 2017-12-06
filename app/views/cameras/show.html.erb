@@ -1,0 +1,14 @@
+<br/>
+<h2><%= @camera.name %></h2>
+<div class="ui divider"></div>
+
+<div class="ui comments">
+  <div class="comment">
+    <div class="comments">
+      <%= render partial: 'reviews/review', collection: @reviews, cached: true %>
+    </div>
+
+  </div>
+</div>
+
+<%= paginate @reviews %>

@@ -1,0 +1,9 @@
+<div id="cameras" class="ui comments">
+  <br/>
+  <h1 class="ui horizontal divider header">
+    <i class="camera retro icon"></i>Listing Cameras
+  </h1>
+  <%= render partial: 'cameras/camera', collection: @cameras, cached: true %>
+</div>
+
+<div><%= paginate @cameras %></div>

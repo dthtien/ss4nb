@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sentimental Data Mining</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="ui container">
+      <div class="ui secondary  menu">
+        <%= link_to "Home", root_path,
+          class: "item #{'active' if current_page?('/')}" %>
+        <%= link_to "Sentiwordnet", analyze_path,
+          class: "item #{'active' if current_page?('/analyze')}" %>
+        <div class="right menu">
+          <div class="item">
+            <%= form_tag root_path, method: :get do %>
+              <div class="ui icon input">
+                <%= text_field_tag :query, params[:query], placeholder: "Search ..." %>
+                <i class="search link icon"></i>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui sizer vertical segment container">
+      <div class="ui huge header center aligned">SentiWordNet Data Mining DEMO</div>
+    </div>
+
+    <div class="ui container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
