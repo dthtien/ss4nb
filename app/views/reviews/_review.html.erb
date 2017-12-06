@@ -4,6 +4,6 @@
     <div class="metadata">
       <span class="date"><%= review.score %></span>
     </div>
-    <div class="text"><%= raw truncate(review.body, length: 300) %></div>
+    <div class="text"><%= raw truncate(review.body, length: 300).html_safe %></div>
   </div>
 </div>
