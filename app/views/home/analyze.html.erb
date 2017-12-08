@@ -1,18 +1,25 @@
-<%= form_tag analyze_path, method: :get, class: "ui form" do %>
-  <%= text_area_tag :content, params[:content] %><br/>
-  <br/>
-  <button class="ui fluid primary button">
-    <i class="search icon"></i>
-    Analyze
-  </button>
+<%= form_tag analyze_path, method: :get do %>
+  <div class="input-field">
+    <%= text_area_tag :content, params[:content], class: "validate" %><br/>
+  </div>
+  <div class="center">
+    <button class="btn center waves-effect waves-teal waves-light">
+      <i class="material-icons">
+        settings_applications
+      </i>
+    </button>
+  </div>
 <% end %>
 
 <% if params[:content].present? %>
-  <div class="ui sizer vertical segment container">
-    <div class="ui huge header center aligned red">
-      <%= $analyzer.get_sentiment(params[:content]).humanize %> | 
-      <%= $analyzer.get_score(params[:content]).round(3) %>
+  <div class="container">
+    <div class="card">
+      <div class="center red">
+        <h4 class="white">
+          <%= $analyzer.get_sentiment(params[:content]).humanize %> | 
+          <%= $analyzer.get_score(params[:content]).round(3) %>
+        </h4>
+      </div>
     </div>
   </div>
-  
 <% end %>

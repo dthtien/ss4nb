@@ -15,7 +15,6 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'kaminari'
-gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -35,3 +34,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #scraper
 gem 'nokogiri'
 gem 'sentiwordnet_ruby'
+
+#delayed job
+gem 'delayed_job_active_record'
+
+# front-end library
+gem 'materialize-sass'
+
+# easier with form
+gem 'simple_form'
+gem 'materialize-form'
+# Chart
+gem "chartkick"

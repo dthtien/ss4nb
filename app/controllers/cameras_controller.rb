@@ -4,7 +4,7 @@ class CamerasController < ApplicationController
   end
 
   def show
-    @camera = Camera.find(params[:id])
+    @camera = Camera.includes(:reviews).find(params[:id])
     @reviews = @camera.reviews.page(params[:page])
   end
 end
