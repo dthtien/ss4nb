@@ -16,8 +16,13 @@ module Scraper::Dpreview
 
       return unless doc.at_css('#productPageTabs .tabs').text().include? 'Amazon'
       brand = doc.css('.breadcrumbs a.item')[1]
+      image_url = doc.at_css('#productImage').attr('style')[/http.+(png|jpg)/]
+      product_link = 'https://dpreview.com' + doc.at_css('li.leftmost.selected a.maintab').attr('href')
+
       {
         brand: "#{brand.text if brand}",
+        image_url: image_url,
+        product_link: product_link,
         name: doc.at_css('.headerContainer h1')&.text,
         amazon_reviews: get_amazon_reviews_from(url)
       }
@@ -38,9 +43,11 @@ module Scraper::Dpreview
         if reviews_data = Scraper.get_data_from(url)
           scraped_data = reviews_data
           brand = Brand.find_or_create_by(name: scraped_data[:brand])
-          camera = Camera.find_or_create_by(name: scraped_data[:name], brand_id: brand.id)
+          camera = Camera.find_or_create_by(name: scraped_data[:name],
+            image_url: scraped_data[:image_url],
+            product_link: scraped_data[:product_link],
+            brand_id: brand.id)
           Review.create(scraped_data[:amazon_reviews].map { |r| {body: r, camera: camera} })
-          # data << reviews_data
         end
 
         yield(size, index) if block_given?

@@ -1,0 +1,6 @@
+<div class="container center">
+  <%= simple_form_for :scrapers, url: scrapers_path, html: {class: 'form-inline'} do |f| %>
+    <%= f.input :year %>
+    <%= f.submit "Scrape", data: {disable_with: "Scraping"}, class: 'btn'%>
+  <% end %>
+</div>

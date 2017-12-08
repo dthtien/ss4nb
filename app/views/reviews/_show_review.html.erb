@@ -1,0 +1,8 @@
+<div class="comment">
+  <div class="content">
+    <a class="author"><%=show_review.sentiment.humanize %>
+      <span class="score"><%= show_review.score.round(3) %></span>)
+    </a>
+    <div class="text"><%= show_review.body.html_safe %></div>
+  </div>
+</div>

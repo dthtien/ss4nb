@@ -3,7 +3,7 @@ class Camera < ApplicationRecord
   belongs_to :brand
 
   scope :filter_and_order, -> do
-    select("cameras.id, name, cameras.updated_at, AVG(reviews.score) AS reviews_avg").
+    select("cameras.id, name, cameras.product_link, cameras.image_url, cameras.updated_at, AVG(reviews.score) AS reviews_avg").
     joins(:reviews).
     where("reviews.score > 0.25").
     group("cameras.id").
@@ -20,5 +20,16 @@ class Camera < ApplicationRecord
 
   def reviews_avg
     read_attribute(:reviews_avg) || cameras.positive.average(:score)
+  end
+
+  def self.update_average_scores 
+    Camera.all.each do |camera|
+      camera.update_average_score
+    end
+  end
+
+  def update_average_score
+    self.update(average_score: self.reviews.average('reviews.score').to_f.round(3)
+        )
   end
 end
