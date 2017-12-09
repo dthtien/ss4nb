@@ -18,6 +18,8 @@ class Camera < ApplicationRecord
       end
   end
 
+  after_save :set_brand_average_scores
+
   def reviews_avg
     read_attribute(:reviews_avg) || cameras.positive.average(:score)
   end
@@ -32,4 +34,9 @@ class Camera < ApplicationRecord
     self.update(average_score: self.reviews.average('reviews.score').to_f.round(3)
         )
   end
+
+  private
+    def set_brand_average_scores
+      Brand.update_average_scores
+    end
 end

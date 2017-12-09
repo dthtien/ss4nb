@@ -36,7 +36,18 @@
       <li class="bold <%= "#{'active' if current_page?('/scrapers/new')}" %>">
         <%= link_to "Scraper", new_scraper_path, class: "waves-effect waves-teal" %>
       </li>
-
+      <li class="mining">
+        <ul class="collapsible collapsible-accordion">
+          <li class="bold"><a class="collapsible-header waves-effect waves-teal">Mining</a>
+            <div class="collapsible-body" style="display: block;">
+              <ul>
+                <li><%= link_to "By brand", clustering_brand_path %></li>
+                <li><%= link_to "By product", clustering_score_path %></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
     </ul>
     <div class="container <%= params[:controller] %>">
       <div id="cameras">
