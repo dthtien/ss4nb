@@ -1,12 +1,16 @@
-<div class="ui piled segment">
-  <h3 class="ui header center aligned">
-    <%= link_to camera.name, camera %> | <%= camera.reviews_avg %>
-  </h3>
+<div class="card">
+  <div class="card-content">
+    <h3 class="ui header center aligned">
+      <%= link_to camera.name, camera %> |
+      <span class="score"><%= camera.reviews_avg.round(3) %></span> |
+      <%= link_to "Dpreview", camera.product_link, target: '_blank' %>
+    </h3>
 
-  <div class="comment">
-    <div class="comments">
-      <%= render partial: 'reviews/review', collection: camera.reviews.limit(3),
-        cached: true %>
+    <div class="comment">
+      <div class="comments">
+        <%= render partial: 'reviews/review', collection: camera.reviews.limit(3),
+          cached: true, show_view: false%>
+      </div>
     </div>
   </div>
 </div>

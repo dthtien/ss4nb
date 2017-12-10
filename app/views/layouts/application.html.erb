@@ -9,31 +9,58 @@
   </head>
 
   <body>
-    <div class="ui container">
-      <div class="ui secondary  menu">
-        <%= link_to "Home", root_path,
-          class: "item #{'active' if current_page?('/')}" %>
+    <nav class="nav-extended">
+      <div class="nav-wrapper">
+        <%= link_to "SentiWordNet Data Mining DEMO", root_path,
+          class: "item brand-logo center" %>
+        <a href="#" class="brand-logo"></a>
+        <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+    <ul class="side-nav fixed" id="mobile-nav">
+      <li class="search">
+        <div class="search-wrapper card">
+          <%= form_tag root_path, method: :get do %>
+            <%= text_field_tag :query, params[:query], placeholder: "Search ...", id: "search" %>
+            <i class="material-icons">search</i>
+          <% end %>
+        </div>
+      </li>
+      <li class="bold <%= "#{'active' if current_page?('/')} "%>">
+        <%= link_to "Home", root_path, class: "waves-effect waves-teal"%>
+      </li>
+      <li class = "bold <%= "#{'active' if current_page?('/analyze')}" %>">
         <%= link_to "Sentiwordnet", analyze_path,
-          class: "item #{'active' if current_page?('/analyze')}" %>
-        <div class="right menu">
-          <div class="item">
-            <%= form_tag root_path, method: :get do %>
-              <div class="ui icon input">
-                <%= text_field_tag :query, params[:query], placeholder: "Search ..." %>
-                <i class="search link icon"></i>
-              </div>
-            <% end %>
+          class: "waves-effect waves-teal" %>
+      </li>
+      <li class="bold <%= "#{'active' if current_page?('/scrapers/new')}" %>">
+        <%= link_to "Scraper", new_scraper_path, class: "waves-effect waves-teal" %>
+      </li>
+      <li class="mining">
+        <ul class="collapsible collapsible-accordion">
+          <li class="bold"><a class="collapsible-header waves-effect waves-teal">Mining</a>
+            <div class="collapsible-body" style="display: block;">
+              <ul>
+                <li><%= link_to "By brand", clustering_brand_path %></li>
+                <li><%= link_to "By product", clustering_score_path %></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="container <%= params[:controller] %>">
+      <div id="cameras">
+        <div class="card">
+          <div class="card-content">
+            <%= yield %>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="ui sizer vertical segment container">
-      <div class="ui huge header center aligned">SentiWordNet Data Mining DEMO</div>
     </div>
-
-    <div class="ui container">
-      <%= yield %>
-    </div>
+    <% flash.each do |key, msg| %>
+      <%= javascript_tag "Materialize.toast('#{msg}', 4000, '#{key}')" %>
+    <% end %>
   </body>
 </html>

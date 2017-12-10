@@ -1,13 +1,4 @@
-@import "semantic-ui";
-
-.ui.pagination {
-  margin: 30px 0 !important;
-}
-
-.ui.huge.header {
-  font-size: 3rem;
-}
-
-textarea {
-  font-size: 32px;
-}
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "materialize";
+@import 'cameras';
+@import 'custom';
