@@ -35,9 +35,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'nokogiri'
 gem 'sentiwordnet_ruby'
 
-#delayed job
-gem 'delayed_job_active_record'
-
 # front-end library
 gem 'materialize-sass'
 
@@ -46,3 +43,6 @@ gem 'simple_form'
 gem 'materialize-form'
 # Chart
 gem "chartkick"
+
+# background job
+gem 'sidekiq'
