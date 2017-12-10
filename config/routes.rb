@@ -1,7 +1,9 @@
-Rails.application.routes.draw do
-  get 'clustering/brand'
+require 'sidekiq/web'
 
-  get 'clustering/score'
+Rails.application.routes.draw do
+  get 'clustering/brand', to: 'clustering#clustering'
+
+  get 'clustering/score', to: 'clustering#clustering'
 
   root "cameras#index"
   resources :cameras, only: [:index, :show]
@@ -9,4 +11,6 @@ Rails.application.routes.draw do
   resources :scrapers, only: [:new, :create]
   
   get 'analyze', to: 'home#analyze'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end

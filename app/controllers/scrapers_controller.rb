@@ -4,12 +4,10 @@ class ScrapersController < ApplicationController
 
   def create
     year = params[:scrapers][:year]
-
     if year.blank?
       render :new
     else
-      scraper = Scraper::Dpreview::Scraper.new(year)
-      scraper.scrape_amazon_reviews!
+      ScraperWorker.perform_async(year)
       flash[:notice] = "Scraping data of year #{year}!"
       redirect_to root_path
     end

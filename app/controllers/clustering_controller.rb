@@ -1,9 +1,9 @@
 class ClusteringController < ApplicationController
-  def brand
-    @records = Brand.all.map { |brand| [brand.name, brand.average_score] }
-  end
+  def clustering
+    class_name = request.path.include?('brand') ? 'Brand' : 'Camera'
 
-  def score
-    @records = Camera.all.map { |camera| [camera.name, camera.average_score] }
+    @records = class_name.constantize.all.map do |record|
+      [record.name, record.average_score]
+    end
   end
 end
