@@ -1,10 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'clustering/brand', to: 'clustering#clustering'
+  get 'statistic/brand', to: 'statistic#statistic'
 
-  get 'clustering/score', to: 'clustering#clustering'
-
+  get 'statistic/product', to: 'statistic#statistic'
   root "cameras#index"
   resources :cameras, only: [:index, :show]
 

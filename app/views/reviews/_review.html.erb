@@ -1,7 +1,7 @@
 <div class="comment">
   <div class="content">
     <a class="author"><%= review.sentiment.humanize %>
-      <span class="score"><%= review.score.round(3) %></span>)
+      (<span class="score"><%= review.score.round(3) %></span>)
     </a>
     <div class="text"><%= raw truncate(review.body, length: 300) %></div>
   </div>

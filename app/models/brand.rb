@@ -9,7 +9,6 @@ class Brand < ApplicationRecord
   end
 
   def update_average_score
-    self.update(average_score: self.cameras.average('cameras.average_score').to_f.round(3)
-        )
+    self.update(average_score: self.cameras.average('cameras.average_score').to_f)
   end
 end

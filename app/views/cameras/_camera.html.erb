@@ -2,7 +2,7 @@
   <div class="card-content">
     <h3 class="ui header center aligned">
       <%= link_to camera.name, camera %> |
-      <span class="score"><%= camera.reviews_avg.round(3) %></span> |
+      <span class="score"><%= camera.average_score %></span> |
       <%= link_to "Dpreview", camera.product_link, target: '_blank' %>
     </h3>
 
