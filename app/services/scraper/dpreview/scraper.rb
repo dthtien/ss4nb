@@ -18,14 +18,29 @@ module Scraper::Dpreview
       brand = doc.css('.breadcrumbs a.item')[1]
       image_url = doc.at_css('#productImage').attr('style')[/http.+(png|jpg)/]
       product_link = 'https://dpreview.com' + doc.at_css('li.leftmost.selected a.maintab').attr('href')
-
-      {
+      return_hash = {
         brand: "#{brand.text if brand}",
+        amazon_reviews: get_amazon_reviews_from(url)
+      }
+      hash = {
         image_url: image_url,
         product_link: product_link,
         name: doc.at_css('.headerContainer h1')&.text,
-        amazon_reviews: get_amazon_reviews_from(url)
       }
+
+      doc.css('.quickSpecs table td.value').each_with_index do |element, i|
+        hash[:pixels] = element.text if i == 2
+        hash[:sensor] = element.text if i == 4
+        hash[:iso] = element.text if i == 5
+        hash[:lens] = element.text if i == 6
+        hash[:screen_size] = element.text if i == 9
+        hash[:weight] = element.text if i == 13
+        hash[:dimensions] = element.text if i == 14
+      end
+
+      return_hash[:camera] = hash
+      return_hash
+
     end
 
     def initialize(year)
@@ -42,12 +57,17 @@ module Scraper::Dpreview
 
         if reviews_data = Scraper.get_data_from(url)
           scraped_data = reviews_data
+
           brand = Brand.find_or_create_by(name: scraped_data[:brand])
-          camera = Camera.find_or_create_by(name: scraped_data[:name],
-            image_url: scraped_data[:image_url],
-            product_link: scraped_data[:product_link],
-            brand_id: brand.id)
+
+          camera = Camera.find_or_initialize_by(
+            name: scraped_data[:camera][:name], 
+            brand_id: brand.id
+          )
+          camera.update(scraped_data[:camera]) if camera.new_record?
+
           Review.create(scraped_data[:amazon_reviews].map { |r| {body: r, camera: camera} })
+          
         end
 
         yield(size, index) if block_given?
@@ -60,7 +80,6 @@ module Scraper::Dpreview
         camera = Camera.find_or_create_by(name: d['name'], brand: brand)
         Review.create d['amazon_reviews'].map { |r| {body: r, camera: camera} }
       end
-      # File.write "lib/data/#{year.gsub(' ', '-')}.json", data.to_json
     end
 
     private
@@ -71,7 +90,8 @@ module Scraper::Dpreview
 
         loop do
           reviews_page = open(
-            "#{REVIEWS_URL}?product=#{product_name}&pageIndex=#{i}", &:read)
+            "#{REVIEWS_URL}?product=#{product_name}&pageIndex=#{i}", &:read
+          )
           data = JSON.parse(
             reviews_page.sub('AmazonCustomerReviews(', '').chomp(')')
           )
@@ -79,7 +99,6 @@ module Scraper::Dpreview
           break if data['reviews'].empty?
 
           reviews_data << data['reviews']
-            .select { |review| review['rating'] > 2 }
             .map { |review| review['content'] }
 
           i += 1

@@ -4,14 +4,14 @@ class Review < ApplicationRecord
   belongs_to :camera
 
   before_save :set_sentiment, if: :body_changed?
+  after_save :set_camera_average_score
 
   scope :positive, -> { where("score > 0.75") }
 
-  after_save :set_camera_average_score
 
   private
     def set_sentiment
-      self.sentiment = $analyzer.get_sentiment(body).sub('-', ' ')
+      self.sentiment = $analyzer.get_sentiment(body.downcase).sub('-', ' ')
       self.score = $analyzer.get_score(body)
     end
 

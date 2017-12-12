@@ -10,6 +10,13 @@ class Camera < ApplicationRecord
     order("reviews_avg DESC")
   end
 
+  scope :filter_with_parameter, -> (sentiment) do
+    select('pixels, sensor, iso, lens, screen_size, weight,dimensions')
+    .joins(:reviews)
+    .where(reviews: {sentiment: sentiment})
+    .order(average_score: :desc)
+  end
+
   scope :search, -> (query) do
     cameras = if query.blank?
         Camera.all 
@@ -31,8 +38,7 @@ class Camera < ApplicationRecord
   end
 
   def update_average_score
-    self.update(average_score: self.reviews.average('reviews.score').to_f.round(3)
-        )
+    self.update(average_score: self.reviews.average('reviews.score').to_f)
   end
 
   private
