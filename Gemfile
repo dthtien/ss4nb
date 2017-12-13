@@ -46,3 +46,5 @@ gem "chartkick"
 
 # background job
 gem 'sidekiq'
+# redis
+gem 'redis'
