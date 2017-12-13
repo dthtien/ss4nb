@@ -1,9 +1,9 @@
-<%= form_tag  clustering_cluste_path, method: :get, id: 'cluste_form' do %>
-  <%= select_tag :sentiment, options_for_select(cluste_option), id: 'select-cluste-form' %>
+<%= form_for :clustering, url:  clustering_cluste_path, method: :get, html: {id: 'cluste_form'} do |f|%>
+  <%= f.select :sentiment, cluste_option , selected: @sentiment %>
 <% end %>
 
 <script>
-  $('#select-cluste-form').change(function(){
+  $('#clustering_sentiment').change(function(){
     $('#cluste_form').submit();
   });
 </script>
