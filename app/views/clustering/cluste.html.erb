@@ -1,1 +1,31 @@
 <%= render 'cluste_form' %>
+
+<div class="cameras">
+  <table class='striped'>
+    <thead>
+      <tr>
+          <th>Name</th>
+          <th>Pixels</th>
+          <th>Sensor</th>
+          <th>ISO</th>
+          <th>Screen size</th>
+          <th>Weight</th>
+          <th>Dimensions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @cameras.each do |camera| %>
+        <tr>
+          <td><%= camera.name %></td>
+          <td><%= camera.pixels %></td>
+          <td><%= camera.sensor %></td>
+          <td><%= camera.iso%></td>
+          <td><%= camera.screen_size %></td>
+          <td><%= camera.weight %></td>
+          <td><%= camera.dimensions %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

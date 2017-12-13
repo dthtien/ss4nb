@@ -36,6 +36,9 @@
       <li class="bold <%= "#{'active' if current_page?('/scrapers/new')}" %>">
         <%= link_to "Scraper", new_scraper_path, class: "waves-effect waves-teal" %>
       </li>
+      <li class="bold <%= "#{'active' if current_page?('/clustering/cluste')}" %>">
+        <%= link_to "Mining", clustering_cluste_path, class: "waves-effect waves-teal" %>
+      </li>
       <li>
         <ul class="collapsible collapsible-accordion mining">
           <li class="bold"><a class="collapsible-header waves-effect waves-teal">Statistic</a>
