@@ -1,0 +1,9 @@
+<%= form_tag  clustering_cluste_path, method: :get, id: 'cluste_form' do %>
+  <%= select_tag :sentiment, options_for_select(cluste_option), id: 'select-cluste-form' %>
+<% end %>
+
+<script>
+  $('#select-cluste-form').change(function(){
+    $('#cluste_form').submit();
+  });
+</script>
