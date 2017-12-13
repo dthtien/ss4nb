@@ -196,6 +196,7 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.2)
+  redis
   sass-rails (~> 5.0)
   sentiwordnet_ruby
   sidekiq
