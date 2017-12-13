@@ -48,3 +48,4 @@ gem "chartkick"
 gem 'sidekiq'
 # redis
 gem 'redis'
+gem 'dotenv-rails', groups: [:development, :test]
