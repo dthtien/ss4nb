@@ -3,4 +3,4 @@
 #Step 2: clone app form: [Project](https://bitbucket.org/dthtien/data_mining-_final_project)
 #Step 3: cd data_mining_final_project
 #Step 4: bundle
-#Step 5: Enjoy
+#Step 5: Enjoying
