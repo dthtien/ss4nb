@@ -11,7 +11,9 @@ class Camera < ApplicationRecord
   end
 
   scope :filter_with_parameter, -> (sentiment) do
-    select('pixels, sensor, iso, lens, screen_size, weight,dimensions')
+    sentiment = sentiment.nil? ? 'very_positive' : sentiment
+
+    select('name, pixels, sensor, iso, lens, screen_size, weight,dimensions')
     .joins(:reviews)
     .where(reviews: {sentiment: sentiment})
     .order(average_score: :desc)

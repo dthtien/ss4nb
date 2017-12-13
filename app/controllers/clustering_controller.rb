@@ -1,5 +1,5 @@
 class ClusteringController < ApplicationController
-  def clustering
-    
+  def cluste
+    @cameras = Camera.filter_with_parameter(params[:sentiment])
   end
 end
