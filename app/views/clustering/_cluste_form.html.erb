@@ -1,5 +1,28 @@
 <%= form_for :clustering, url:  clustering_cluste_path, method: :get, html: {id: 'cluste_form'} do |f|%>
-  <%= f.select :sentiment, cluste_option , selected: @sentiment %>
+  <%= f.label :pixels %>
+  <%= f.select :pixels, Camera.pluck(:pixels).uniq, 
+    selected: set_selected('pixels'), prompt: 'Select pixels' %>
+  <%= f.label :sensor %>
+  <%= f.select :sensor, Camera.pluck(:sensor).uniq, prompt: 'Select sensor',
+    selected: set_selected('sensor')%>
+  <%= f.label :iso %>
+  <%= f.select :iso, Camera.pluck(:iso).uniq, prompt: 'Select iso', 
+    selected: set_selected('iso')%>
+  <%= f.label :lens %>
+  <%= f.select :lens, Camera.pluck(:lens).uniq, prompt: 'Select lens', 
+    selected: set_selected('iso')%>
+  <%= f.label :screen_size %>
+  <%= f.select :screen_size, Camera.pluck(:screen_size).uniq, prompt: 'Select screen size', selected: set_selected('screen_size')%>
+  <%= f.label :weight %>
+  <%= f.select :weight, Camera.pluck(:weight).uniq, prompt: 'Select weight',
+    selected: set_selected('weight')%>
+  <%= f.label :dimensions %>
+  <%= f.select :dimensions, Camera.pluck(:dimensions).uniq, 
+    prompt: 'Select dimensions', selected: set_selected('dimensions')%>
+  
+  <div class="center">
+    <%= f.submit "Minning", class: 'btn' %>
+  </div>
 <% end %>
 
 <script>

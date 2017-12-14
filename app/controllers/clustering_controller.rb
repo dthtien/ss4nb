@@ -1,6 +1,7 @@
 class ClusteringController < ApplicationController
   def cluste
-    @sentiment = params[:clustering].nil? ? 'very_positive' : params[:clustering][:sentiment]
-    @cameras = Camera.filter_with_sentiment(@sentiment)
+    if params[:clustering]
+      @sentiment = Camera.filter_with_options(params[:clustering])
+    end
   end
 end

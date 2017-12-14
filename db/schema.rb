@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211155703) do
+ActiveRecord::Schema.define(version: 20171214160857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171211155703) do
     t.string   "screen_size"
     t.string   "weight"
     t.string   "dimensions"
+    t.string   "sentiment"
     t.index ["brand_id"], name: "index_cameras_on_brand_id", using: :btree
     t.index ["name"], name: "index_cameras_on_name", using: :btree
   end

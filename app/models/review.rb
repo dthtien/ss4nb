@@ -16,6 +16,7 @@ class Review < ApplicationRecord
     end
 
     def set_camera_average_score
-      Camera.update_average_scores
+      self.camera.update_average_score!
+      self.camera.set_sentiment!
     end
 end
