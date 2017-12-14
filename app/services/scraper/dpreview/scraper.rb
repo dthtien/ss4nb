@@ -34,8 +34,8 @@ module Scraper::Dpreview
         hash[:iso] = element.text if i == 5
         hash[:lens] = element.text if i == 6
         hash[:screen_size] = element.text if i == 9
-        hash[:weight] = element.text if i == 13
-        hash[:dimensions] = element.text if i == 14
+        hash[:weight] = element.text if i == 15
+        hash[:dimensions] = element.text if i == 16
       end
 
       return_hash[:camera] = hash
