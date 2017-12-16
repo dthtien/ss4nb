@@ -16,7 +16,7 @@ module Scraper::Dpreview
 
       return unless doc.at_css('#productPageTabs .tabs').text().include? 'Amazon'
       brand = doc.css('.breadcrumbs a.item')[1]
-      image_url = doc.at_css('#productImage').attr('style')[/http.+(png|jpg)/]
+      image_url = doc.at_css('#productImage').attr('style')[/http.+(png|jpg)/] if doc.at_css('#productImage')
       product_link = 'https://dpreview.com' + doc.at_css('li.leftmost.selected a.maintab').attr('href')
       return_hash = {
         brand: "#{brand.text if brand}",
@@ -29,13 +29,13 @@ module Scraper::Dpreview
       }
 
       doc.css('.quickSpecs table td.value').each_with_index do |element, i|
-        hash[:pixels] = element.text if i == 2
-        hash[:sensor] = element.text if i == 4
-        hash[:iso] = element.text if i == 5
-        hash[:lens] = element.text if i == 6
-        hash[:screen_size] = element.text if i == 9
-        hash[:weight] = element.text if i == 15
-        hash[:dimensions] = element.text if i == 16
+        hash[:pixels] = element.text.chomp if i == 2
+        hash[:sensor] = element.text.chomp if i == 4
+        hash[:iso] = element.text.chomp if i == 5
+        hash[:lens] = element.text.chomp if i == 6
+        hash[:screen_size] = element.text.chomp if i == 9
+        hash[:weight] = element.text.chomp if i == 15
+        hash[:dimensions] = element.text.chomp if i == 16
       end
 
       return_hash[:camera] = hash
@@ -92,6 +92,7 @@ module Scraper::Dpreview
           reviews_page = open(
             "#{REVIEWS_URL}?product=#{product_name}&pageIndex=#{i}", &:read
           )
+
           data = JSON.parse(
             reviews_page.sub('AmazonCustomerReviews(', '').chomp(')')
           )

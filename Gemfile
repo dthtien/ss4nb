@@ -44,8 +44,5 @@ gem 'materialize-form'
 # Chart
 gem "chartkick"
 
-# background job
-gem 'sidekiq'
-# redis
-gem 'redis'
-gem 'dotenv-rails', groups: [:development, :test]
+# Background job
+gem 'delayed_job_active_record'
