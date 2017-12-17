@@ -6,7 +6,7 @@ rDBMS: [postgresql](https://www.postgresql.org/)
 - Step 3: run cd ss4nb
 - Step 4: run bundle
 - Step 5: run rails db:create
-- Stem 6:  psql -d sentimental_dss_development -f database.sql
+  if you want to use demo database do step 6
+  - Step 6:  psql -d sentimental_dss_development -f database.sql
 - Step 7: run rails db:migrate
-- Step 8: run db:seed
 - Step : Enjoying
